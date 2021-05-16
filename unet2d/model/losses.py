@@ -4,7 +4,7 @@ from .metrics import dice_coefficient, dice_coefficient_with_logits
 
 class PixelwiseBCEWithLogitsLoss(nn.Module):
     def __init__(self):
-        super(PixelwiseBCEWithLogitsLoss, self).__init__()
+        super(PixelwiseBCELogitsLoss, self).__init__()
         self.bce_logits = nn.BCEWithLogitsLoss(reduction="none")
         
     def forward(self, input, target, weights):
@@ -14,9 +14,9 @@ class PixelwiseBCEWithLogitsLoss(nn.Module):
         return result.mean()
 
 class PixelWiseCELogitsLoss(nn.Module):
-    def __init__(self, weight_class):
+    def __init__(self):
         super(PixelWiseCELogitsLoss, self).__init__()
-        self.ce = nn.CrossEntropyLoss(weight=weight_class, reduction="none")
+        self.ce = nn.CrossEntropyLoss(reduction="none")
         
     def forward(self, input, target, weights):
         weights = weights.squeeze(1)
