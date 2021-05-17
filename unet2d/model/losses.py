@@ -14,9 +14,9 @@ class PixelwiseBCEWithLogitsLoss(nn.Module):
         return result.mean()
 
 class PixelWiseCELogitsLoss(nn.Module):
-    def __init__(self):
+    def __init__(self, weight_class):
         super(PixelWiseCELogitsLoss, self).__init__()
-        self.ce = nn.CrossEntropyLoss(reduction="none")
+        self.ce = nn.CrossEntropyLoss(weight=weight_class, reduction="none")
         
     def forward(self, input, target, weights):
         weights = weights.squeeze(1)
