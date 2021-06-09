@@ -39,7 +39,7 @@ class AugTransformConstantPosWeights:
 
         # reshape
         x_aug = np.expand_dims(x_aug, 0).astype(np.float32)
-        y_true_aug = np.expand_dims(y_true_aug.arr[:, :, 0], 0).astype(np.long)
+        y_true_aug = np.expand_dims(y_true_aug.arr[:, :, 0], 0).astype(np.float32)
         weights = self.pos_weight * (y_true_aug > 0).astype(np.float32) + 1
 
         return {"x": x_aug, "y_true": y_true_aug, "weights": weights}
